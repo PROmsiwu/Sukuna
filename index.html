@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUKUNA X MASTER | Tournament</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff4b2b;
+            --secondary-color: #ff416c;
+            --dark-bg: #0f0c29;
+            --card-bg: #1a1a2e;
+            --text-color: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* تصميم الهيدر */
+        header {
+            margin-top: 50px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px var(--primary-color);
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        /* حاوية التسجيل */
+        .container {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--primary-color);
+            width: 90%;
+            max-width: 400px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background: #0f0c29;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover { transform: scale(1.05); }
+
+        /* لوحة الأدمن */
+        #adminSection, #registrationForm { display: none; }
+        .active { display: block !important; }
+
+        .admin-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .admin-table th, .admin-table td {
+            border: 1px solid var(--primary-color);
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* إعلان وهمي */
+        #adOverlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            width: 50px; height: 50px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <header onclick="handleAdminClick()">
+        <h1 id="siteLogo">SUKUNA X MASTER</h1>
+        <p>البطولة الكبرى لفري فاير</p>
+    </header>
+
+    <div id="homePage" class="container active">
+        <button onclick="showRegistration()">تسجيل متسابق جديد</button>
+    </div>
+
+    <div id="registrationForm" class="container">
+        <h3>بيانات المشترك</h3>
+        <input type="text" id="playerName" placeholder="اسم اللاعب">
+        <input type="text" id="playerID" placeholder="ضع ID هنا">
+        <input type="tel" id="playerWhatsapp" placeholder="رقم الواتساب">
+        <button onclick="processRegistration()">إرسال التسجيل</button>
+        <button onclick="location.reload()" style="background: #444; margin-top: 5px;">إلغاء</button>
+    </div>
+
+    <div id="adminSection" class="container" style="max-width: 800px;">
+        <h2>لوحة التحكم (المدير)</h2>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>ID</th>
+                    <th>واتساب</th>
+                </tr>
+            </thead>
+            <tbody id="playersList"></tbody>
+        </table>
+        <button onclick="location.reload()" style="margin-top: 20px;">خروج</button>
+    </div>
+
+    <div id="adOverlay">
+        <div class="loader"></div>
+        <h2 id="adStatus">جاري عرض الإعلان... (5)</h2>
+        <p>برجاء عدم الإغلاق لإتمام التسجيل</p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCd6mOpEJyiUSAAhmm2NbhT80MMY0UQJcc",
+            authDomain: "project-fe025bb5-b1cc-4b8f-93e.firebaseapp.com",
+            databaseURL: "https://project-fe025bb5-b1cc-4b8f-93e-default-rtdb.firebaseio.com",
+            projectId: "project-fe025bb5-b1cc-4b8f-93e",
+            storageBucket: "project-fe025bb5-b1cc-4b8f-93e.firebasestorage.app",
+            messagingSenderId: "148069353954",
+            appId: "1:148069353954:web:783adf7e8a0c796393d1bb"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // وظائف الواجهة
+        window.showRegistration = () => {
+            document.getElementById('homePage').classList.remove('active');
+            document.getElementById('registrationForm').classList.add('active');
+        };
+
+        // نظام الضغطات الثلاث للأدمن
+        let clickCount = 0;
+        window.handleAdminClick = () => {
+            clickCount++;
+            if (clickCount === 3) {
+                clickCount = 0;
+                let pass = prompt("أدخل كلمة مرور الأدمن:");
+                if (pass === "cheats777") {
+                    showAdminPanel();
+                } else {
+                    alert("كلمة مرور خاطئة!");
+                }
+            }
+            setTimeout(() => { clickCount = 0; }, 2000);
+        };
+
+        function showAdminPanel() {
+            document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+            document.getElementById('adminSection').classList.add('active');
+            
+            const playersRef = ref(db, 'players');
+            onValue(playersRef, (snapshot) => {
+                const data = snapshot.val();
+                const list = document.getElementById('playersList');
+                list.innerHTML = "";
+                for (let id in data) {
+                    list.innerHTML += `<tr>
+                        <td>${data[id].name}</td>
+                        <td>${data[id].gameID}</td>
+                        <td>${data[id].whatsapp}</td>
+                    </tr>`;
+                }
+            });
+        }
+
+        // معالجة التسجيل والإعلان
+        window.processRegistration = () => {
+            const name = document.getElementById('playerName').value;
+            const gameID = document.getElementById('playerID').value;
+            const whatsapp = document.getElementById('playerWhatsapp').value;
+
+            if(!name || !gameID || !whatsapp) return alert("برجاء ملء كافة البيانات");
+
+            // إظهار شاشة الإعلان
+            const adOverlay = document.getElementById('adOverlay');
+            adOverlay.style.display = 'flex';
+            let timeLeft = 5;
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('adStatus').innerText = `جاري عرض الإعلان... (${timeLeft})`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    adOverlay.style.display = 'none';
+                    saveData(name, gameID, whatsapp);
+                }
+            }, 1000);
+        };
+
+        function saveData(name, gameID, whatsapp) {
+            const playersRef = ref(db, 'players');
+            push(playersRef, {
+                name: name,
+                gameID: gameID,
+                whatsapp: whatsapp,
+                timestamp: Date.now()
+            }).then(() => {
+                alert("تم التسجيل بنجاح! حظاً موفقاً.");
+                location.reload();
+            }).catch(() => {
+                alert("فشل التسجيل، حاول مرة أخرى.");
+            });
+        }
+    </script>
+</body>
+</html>
