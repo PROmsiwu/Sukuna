@@ -3,166 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUKUNA X MASTER | Tournament</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>SUKUNA X MASTER | Gaming Hub</title>
+    
+    <link rel="icon" type="image/jpg" href="abc.jpg">
+    <meta property="og:image" content="abc.jpg">
+    <meta property="og:title" content="SUKUNA X MASTER">
+    <meta property="og:description" content="موقع فري فاير الرسمي - تسجيل مسابقات وسكربتات">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7995831182050548" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #ff4b2b;
-            --secondary-color: #ff416c;
-            --dark-bg: #0f0c29;
-            --card-bg: #1a1a2e;
-            --text-color: #ffffff;
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --neon-red: #ff003c;
+            --dark-bg: #050505;
         }
 
         body {
             margin: 0;
+            background-color: var(--dark-bg);
+            background-image: radial-gradient(circle at center, #1a1a2e 0%, #050505 100%);
+            color: #fff;
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-            color: var(--text-color);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
-        /* تصميم الهيدر */
+        /* تصميم الهيدر واللوجو */
         header {
-            margin-top: 50px;
+            padding: 20px 0;
             text-align: center;
             cursor: pointer;
-            user-select: none;
+        }
+
+        .logo-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+            margin-bottom: 10px;
+            object-fit: cover;
         }
 
         header h1 {
-            font-size: 3rem;
-            text-transform: uppercase;
-            text-shadow: 0 0 20px var(--primary-color);
-            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin: 0;
             color: #fff;
+            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+            letter-spacing: 3px;
         }
 
-        /* حاوية التسجيل */
+        /* الحاويات */
         .container {
-            background: var(--card-bg);
+            max-width: 500px;
+            margin: 20px auto;
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid var(--neon-purple);
+            box-shadow: 0 0 25px rgba(188, 19, 254, 0.2);
+            border-radius: 20px;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid var(--primary-color);
-            width: 90%;
-            max-width: 400px;
-            margin-top: 30px;
-            text-align: center;
+            display: none;
+            position: relative;
+            overflow: hidden;
         }
 
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #444;
-            background: #0f0c29;
-            color: white;
-            box-sizing: border-box;
+        .container::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
         }
 
-        button {
-            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
-            color: white;
-            border: none;
-            padding: 15px 30px;
+        .active { display: block !important; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* الأزرار */
+        .grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+
+        .btn {
+            background: #111;
+            border: 2px solid var(--neon-blue);
+            color: #fff;
+            padding: 15px;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 5px;
-            width: 100%;
             transition: 0.3s;
-            margin-top: 10px;
+            border-radius: 10px;
+            text-shadow: 0 0 5px var(--neon-blue);
         }
 
-        button:hover { transform: scale(1.05); }
+        .btn:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        .btn-red { border-color: var(--neon-red); text-shadow: 0 0 5px var(--neon-red); }
+        .btn-red:hover { background: var(--neon-red); color: #fff; box-shadow: 0 0 30px var(--neon-red); }
+
+        input {
+            width: 100%; padding: 15px; margin: 10px 0;
+            background: #1a1a1a; border: 1px solid #333;
+            color: #fff; border-radius: 8px; box-sizing: border-box;
+        }
+
+        input:focus { border-color: var(--neon-purple); outline: none; box-shadow: 0 0 10px var(--neon-purple); }
 
         /* لوحة الأدمن */
-        #adminSection, #registrationForm { display: none; }
-        .active { display: block !important; }
+        .admin-table-container { overflow-x: auto; width: 100%; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; }
+        th, td { border: 1px solid #222; padding: 12px; text-align: center; }
+        th { background: var(--neon-purple); color: #fff; }
 
-        .admin-table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
+        /* شاشة الإعلان */
+        #adBox {
+            position: fixed; top:0; left:0; width: 100%; height: 100%;
+            background: #000; z-index: 9999; display: none;
+            flex-direction: column; justify-content: center; align-items: center;
         }
 
-        .admin-table th, .admin-table td {
-            border: 1px solid var(--primary-color);
-            padding: 10px;
-            text-align: center;
-        }
-
-        /* إعلان وهمي */
-        #adOverlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--primary-color);
-            border-radius: 50%;
-            width: 50px; height: 50px;
-            animation: spin 2s linear infinite;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .ad-unit { width: 320px; height: 100px; background: #111; margin: 20px 0; border: 1px dashed #444; }
     </style>
 </head>
 <body>
 
-    <header onclick="handleAdminClick()">
-        <h1 id="siteLogo">SUKUNA X MASTER</h1>
-        <p>البطولة الكبرى لفري فاير</p>
+    <header onclick="checkAdmin()">
+        <img src="abc.jpg" alt="Logo" class="logo-img">
+        <h1>SUKUNA X MASTER</h1>
     </header>
 
     <div id="homePage" class="container active">
-        <button onclick="showRegistration()">تسجيل متسابق جديد</button>
+        <div class="grid-menu">
+            <button class="btn" onclick="showView('regForm')">تسجيل متسابق</button>
+            <button class="btn" onclick="showView('soon')">تسجيل للرابطة</button>
+            <button class="btn" onclick="showView('soon')">سكربتات فري فاير</button>
+            <button class="btn btn-red" onclick="window.close()">خروج</button>
+        </div>
+        <div class="ad-unit">
+             <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-7995831182050548"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
     </div>
 
-    <div id="registrationForm" class="container">
-        <h3>بيانات المشترك</h3>
-        <input type="text" id="playerName" placeholder="اسم اللاعب">
-        <input type="text" id="playerID" placeholder="ضع ID هنا">
-        <input type="tel" id="playerWhatsapp" placeholder="رقم الواتساب">
-        <button onclick="processRegistration()">إرسال التسجيل</button>
-        <button onclick="location.reload()" style="background: #444; margin-top: 5px;">إلغاء</button>
+    <div id="regForm" class="container">
+        <h2 style="color: var(--neon-blue); text-align: center;">انضم للمنافسة</h2>
+        <input type="text" id="pName" placeholder="اسمك في اللعبة">
+        <input type="text" id="pID" placeholder="ID اللاعب (سيتم فحصه)">
+        <input type="tel" id="pWH" placeholder="رقم واتساب التواصل">
+        <button class="btn" style="width: 100%; margin-top: 10px;" onclick="startAd()">إرسال البيانات</button>
+        <button class="btn btn-red" style="width: 100%; margin-top: 10px;" onclick="showView('homePage')">إلغاء</button>
     </div>
 
-    <div id="adminSection" class="container" style="max-width: 800px;">
-        <h2>لوحة التحكم (المدير)</h2>
-        <table class="admin-table">
-            <thead>
-                <tr>
-                    <th>الاسم</th>
-                    <th>ID</th>
-                    <th>واتساب</th>
-                </tr>
-            </thead>
-            <tbody id="playersList"></tbody>
-        </table>
-        <button onclick="location.reload()" style="margin-top: 20px;">خروج</button>
+    <div id="adminPanel" class="container" style="max-width: 800px;">
+        <h2 style="color: var(--neon-purple)">لوحة التحكم العليات</h2>
+        <div class="admin-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>اللاعب</th>
+                        <th>ID</th>
+                        <th>واتساب</th>
+                        <th>تحكم</th>
+                    </tr>
+                </thead>
+                <tbody id="playersData"></tbody>
+            </table>
+        </div>
+        <button class="btn btn-red" style="margin-top: 20px" onclick="location.reload()">تسجيل خروج</button>
     </div>
 
-    <div id="adOverlay">
-        <div class="loader"></div>
-        <h2 id="adStatus">جاري عرض الإعلان... (5)</h2>
-        <p>برجاء عدم الإغلاق لإتمام التسجيل</p>
+    <div id="soon" class="container">
+        <h2 style="text-align: center;">قريباً جداً...</h2>
+        <button class="btn" style="width: 100%" onclick="showView('homePage')">رجوع</button>
+    </div>
+
+    <div id="adBox">
+        <h2 id="adTimer" style="color: var(--neon-blue)">انتظر ثواني...</h2>
+        <div class="ad-unit">
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:300px;height:250px"
+                 data-ad-client="ca-pub-7995831182050548"
+                 data-ad-slot="YOUR_AD_SLOT_ID"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+        <p>جاري التحقق من مشاهدة الإعلان لإتمام التسجيل...</p>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getDatabase, ref, push, onValue, remove, set, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCd6mOpEJyiUSAAhmm2NbhT80MMY0UQJcc",
@@ -177,85 +213,81 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // وظائف الواجهة
-        window.showRegistration = () => {
-            document.getElementById('homePage').classList.remove('active');
-            document.getElementById('registrationForm').classList.add('active');
-        };
-
-        // نظام الضغطات الثلاث للأدمن
-        let clickCount = 0;
-        window.handleAdminClick = () => {
-            clickCount++;
-            if (clickCount === 3) {
-                clickCount = 0;
-                let pass = prompt("أدخل كلمة مرور الأدمن:");
-                if (pass === "cheats777") {
-                    showAdminPanel();
-                } else {
-                    alert("كلمة مرور خاطئة!");
-                }
-            }
-            setTimeout(() => { clickCount = 0; }, 2000);
-        };
-
-        function showAdminPanel() {
+        window.showView = (id) => {
             document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
-            document.getElementById('adminSection').classList.add('active');
-            
-            const playersRef = ref(db, 'players');
-            onValue(playersRef, (snapshot) => {
-                const data = snapshot.val();
-                const list = document.getElementById('playersList');
-                list.innerHTML = "";
-                for (let id in data) {
-                    list.innerHTML += `<tr>
-                        <td>${data[id].name}</td>
-                        <td>${data[id].gameID}</td>
-                        <td>${data[id].whatsapp}</td>
-                    </tr>`;
-                }
-            });
-        }
+            document.getElementById(id).classList.add('active');
+        };
 
-        // معالجة التسجيل والإعلان
-        window.processRegistration = () => {
-            const name = document.getElementById('playerName').value;
-            const gameID = document.getElementById('playerID').value;
-            const whatsapp = document.getElementById('playerWhatsapp').value;
+        let adminClicks = 0;
+        window.checkAdmin = () => {
+            adminClicks++;
+            if(adminClicks === 3) {
+                if(prompt("الباسورد السري:") === "cheats777") loadAdmin();
+                adminClicks = 0;
+            }
+            setTimeout(() => adminClicks = 0, 2500);
+        };
 
-            if(!name || !gameID || !whatsapp) return alert("برجاء ملء كافة البيانات");
+        window.startAd = async () => {
+            const id = document.getElementById('pID').value;
+            if(!id || !document.getElementById('pName').value) return alert("املا البيانات يا بطل!");
 
-            // إظهار شاشة الإعلان
-            const adOverlay = document.getElementById('adOverlay');
-            adOverlay.style.display = 'flex';
-            let timeLeft = 5;
-            
-            const timer = setInterval(() => {
-                timeLeft--;
-                document.getElementById('adStatus').innerText = `جاري عرض الإعلان... (${timeLeft})`;
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    adOverlay.style.display = 'none';
-                    saveData(name, gameID, whatsapp);
+            // فحص الحظر
+            const banCheck = await get(ref(db, 'banned/' + id));
+            if(banCheck.exists()) return alert("الـ ID ده محظور من الإدارة!");
+
+            document.getElementById('adBox').style.display = 'flex';
+            let timer = 8; // زيادة الوقت قليلاً لضمان ظهور الإعلان
+            const interval = setInterval(() => {
+                timer--;
+                document.getElementById('adTimer').innerText = `جاري المعالجة... (${timer})`;
+                if(timer <= 0) {
+                    clearInterval(interval);
+                    document.getElementById('adBox').style.display = 'none';
+                    saveData();
                 }
             }, 1000);
         };
 
-        function saveData(name, gameID, whatsapp) {
-            const playersRef = ref(db, 'players');
-            push(playersRef, {
-                name: name,
-                gameID: gameID,
-                whatsapp: whatsapp,
-                timestamp: Date.now()
-            }).then(() => {
-                alert("تم التسجيل بنجاح! حظاً موفقاً.");
+        function saveData() {
+            const player = {
+                name: document.getElementById('pName').value,
+                id: document.getElementById('pID').value,
+                whatsapp: document.getElementById('pWH').value
+            };
+            push(ref(db, 'players'), player).then(() => {
+                alert("تم تسجيلك بنجاح في SUKUNA X MASTER!");
                 location.reload();
-            }).catch(() => {
-                alert("فشل التسجيل، حاول مرة أخرى.");
             });
         }
+
+        function loadAdmin() {
+            showView('adminPanel');
+            onValue(ref(db, 'players'), (snap) => {
+                const tbody = document.getElementById('playersData');
+                tbody.innerHTML = "";
+                snap.forEach(child => {
+                    const p = child.val();
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${p.name}</td>
+                            <td>${p.id}</td>
+                            <td>${p.whatsapp}</td>
+                            <td>
+                                <button class="btn btn-red" style="padding:5px" onclick="deleteP('${child.key}')">حذف</button>
+                                <button class="btn" style="padding:5px; border-color:orange" onclick="banP('${p.id}', '${child.key}')">حظر</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            });
+        }
+
+        window.deleteP = (key) => remove(ref(db, 'players/' + key));
+        window.banP = (id, key) => {
+            set(ref(db, 'banned/' + id), true);
+            remove(ref(db, 'players/' + key));
+        };
     </script>
 </body>
 </html>
