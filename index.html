@@ -11,10 +11,24 @@
             margin: 0; background: var(--dark); color: white;
             font-family: 'Cairo', sans-serif; overflow: hidden;
         }
-        /* خلفية جيمنج احترافية */
+        /* خلفية Particles.js */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: var(--dark);
+            background-image: url('');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 50%;
+            z-index: 1; /* عشان تبقى ورا باقي المحتوى */
+        }
+        /* Hero section فوق الـ particles */
         .hero {
+            position: relative; /* عشان يبقى فوق الـ particles */
+            z-index: 2; /* عشان يبقى فوق الـ particles */
             height: 100vh; display: flex; flex-direction: column; align-items: center;
-            justify-content: center; background: radial-gradient(circle, #0f172a 0%, #050505 100%);
+            justify-content: center;
         }
         .app-card {
             background: rgba(255, 255, 255, 0.02); padding: 30px; border-radius: 25px;
@@ -51,6 +65,8 @@
 </head>
 <body>
 
+<div id="particles-js"></div>
+
 <div class="hero">
     <div class="app-card">
         <img src="abc.jpg" class="logo" onclick="checkAdmin()" alt="Logo">
@@ -78,6 +94,7 @@
     <button class="close-admin" onclick="closeAdmin()">إغلاق اللوحة</button>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getDatabase, ref, onValue, set, get, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
@@ -175,6 +192,25 @@
         const current = snap.val();
         set(dbRef, current === "off" ? "on" : "off");
     };
+
+    // تهيئة Particles.js
+    particlesJS('particles-js', {
+        "particles": {
+            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#00f3ff" },
+            "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } },
+            "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } },
+            "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
+            "line_linked": { "enable": true, "distance": 150, "color": "#ff00ff", "opacity": 0.4, "width": 1 },
+            "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+            "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
+        },
+        "retina_detect": true
+    });
 </script>
 </body>
 </html>
