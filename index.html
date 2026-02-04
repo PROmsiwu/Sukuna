@@ -3,64 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUKUNA X MASTER - V2.0</title>
+    <title>SUKUNA X MASTER - V3.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Cairo:wght@400;900&display=swap" rel="stylesheet">
     <style>
         :root { --neon: #00f3ff; --magenta: #ff00ff; --dark: #050505; }
-        body {
-            margin: 0; background: var(--dark); color: white;
-            font-family: 'Cairo', sans-serif; overflow: hidden;
-        }
-        /* خلفية Particles.js */
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: var(--dark);
-            background-image: url('');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: 50% 50%;
-            z-index: 1; /* عشان تبقى ورا باقي المحتوى */
-        }
-        /* Hero section فوق الـ particles */
-        .hero {
-            position: relative; /* عشان يبقى فوق الـ particles */
-            z-index: 2; /* عشان يبقى فوق الـ particles */
-            height: 100vh; display: flex; flex-direction: column; align-items: center;
-            justify-content: center;
-        }
-        .app-card {
-            background: rgba(255, 255, 255, 0.02); padding: 30px; border-radius: 25px;
-            border: 1px solid rgba(0, 243, 255, 0.2); backdrop-filter: blur(15px);
-            width: 85%; max-width: 380px; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.7);
-        }
-        .logo {
-            width: 110px; height: 110px; border-radius: 50%; border: 2px solid var(--neon);
-            box-shadow: 0 0 15px var(--neon); margin-bottom: 15px; cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .logo:active { transform: scale(0.9); }
+        body { margin: 0; background: var(--dark); color: white; font-family: 'Cairo', sans-serif; overflow: hidden; }
+        #particles-js { position: absolute; width: 100%; height: 100%; background-color: var(--dark); z-index: 1; }
+        .hero { position: relative; z-index: 2; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .app-card { background: rgba(255, 255, 255, 0.02); padding: 30px; border-radius: 25px; border: 1px solid rgba(0, 243, 255, 0.2); backdrop-filter: blur(15px); width: 85%; max-width: 380px; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.7); }
+        .logo { width: 110px; height: 110px; border-radius: 50%; border: 2px solid var(--neon); box-shadow: 0 0 15px var(--neon); margin-bottom: 15px; cursor: pointer; transition: transform 0.3s; }
         h1 { font-family: 'Orbitron', sans-serif; font-size: 1.6rem; color: var(--neon); text-shadow: 0 0 10px var(--neon); margin: 10px 0; }
-        
-        /* الزراير الجيمنج */
         .btn-grid { display: grid; gap: 12px; margin-top: 20px; }
-        .g-btn {
-            background: linear-gradient(45deg, #111, #1a1a1a);
-            border: 1px solid var(--neon); color: white; padding: 14px;
-            border-radius: 10px; font-weight: 900; cursor: pointer;
-            transition: 0.3s; font-size: 0.95rem;
-        }
+        .g-btn { background: linear-gradient(45deg, #111, #1a1a1a); border: 1px solid var(--neon); color: white; padding: 14px; border-radius: 10px; font-weight: 900; cursor: pointer; transition: 0.3s; font-size: 0.95rem; }
         .g-btn:disabled { border-color: #333; color: #555; cursor: not-allowed; opacity: 0.5; }
         .g-btn:not(:disabled):hover { background: var(--neon); color: black; box-shadow: 0 0 15px var(--neon); }
-        
-        /* لوحة الأدمن */
-        #adminPanel {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 100; display: none; padding: 30px; box-sizing: border-box;
-        }
-        .admin-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #222; }
-        .close-admin { margin-top: 30px; background: red; color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; }
+
+        /* لوحة الأدمن المطورة */
+        #adminPanel { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 100; display: none; padding: 20px; box-sizing: border-box; overflow-y: auto; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--neon); padding-bottom: 10px; margin-bottom: 20px; }
+        .player-list { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 10px; max-height: 300px; overflow-y: auto; margin-top: 20px; }
+        .player-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #222; font-size: 0.9rem; }
+        .del-btn { background: #ff4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        .control-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #222; }
     </style>
 </head>
 <body>
@@ -71,8 +35,7 @@
     <div class="app-card">
         <img src="abc.jpg" class="logo" onclick="checkAdmin()" alt="Logo">
         <h1>SUKUNA MASTER</h1>
-        <p style="font-size: 0.75rem; color: #666; letter-spacing: 1px;">PREMIUM GAMING PANEL</p>
-        
+        <p style="font-size: 0.75rem; color: #666;">PREMIUM GAMING PANEL</p>
         <div class="btn-grid">
             <button class="g-btn" id="btn_reg" onclick="action('reg')">🏆 تسجيل البطولة</button>
             <button class="g-btn" id="btn_script" onclick="action('script')">⚡ سكربت الهيدشوت</button>
@@ -82,135 +45,115 @@
 </div>
 
 <div id="adminPanel">
-    <h2 style="color: var(--neon); font-family: 'Orbitron';">ADMIN CONTROL</h2>
-    <div class="admin-row">
-        <span>زر البطولة:</span>
-        <button onclick="toggleBtn('btn_reg')">تغيير الحالة</button>
+    <div class="admin-header">
+        <h2 style="color: var(--neon); font-family: 'Orbitron'; margin: 0;">MASTER ADMIN</h2>
+        <button onclick="closeAdmin()" style="background:none; border:1px solid red; color:red; padding:5px 15px; border-radius:5px;">إغلاق</button>
     </div>
-    <div class="admin-row">
-        <span>زر السكربت:</span>
-        <button onclick="toggleBtn('btn_script')">تغيير الحالة</button>
+
+    <div class="control-row">
+        <span>قفل/فتح التسجيل:</span>
+        <button id="toggleReg" onclick="toggleBtn('btn_reg')">تحميل...</button>
     </div>
-    <button class="close-admin" onclick="closeAdmin()">إغلاق اللوحة</button>
+
+    <h3 style="color: var(--magenta); margin-top: 30px;">قائمة المسجلين (<span id="count">0</span>):</h3>
+    <div class="player-list" id="playerList">
+        <p style="text-align:center; color:#666;">جاري تحميل اللاعبين...</p>
+    </div>
+
+    <button onclick="clearAllPlayers()" style="width:100%; margin-top:20px; padding:15px; background:#444; color:white; border:none; border-radius:10px;">تصفير القائمة بالكامل ⚠️</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, onValue, set, get, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getDatabase, ref, onValue, set, get, push, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-    // إعدادات الفايربيس الخاصة بك
-    const firebaseConfig = {
-        databaseURL: "https://project-fe025bb5-b1cc-4b8f-93e-default-rtdb.firebaseio.com",
-    };
+    const firebaseConfig = { databaseURL: "https://project-fe025bb5-b1cc-4b8f-93e-default-rtdb.firebaseio.com" };
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // 1. مراقبة حالة الزراير من الأدمن (تحديث لحظي)
-    const btns = ['btn_reg', 'btn_script', 'btn_clan'];
-    btns.forEach(id => {
-        onValue(ref(db, 'settings/' + id), (snapshot) => {
-            const status = snapshot.val();
-            const btnEl = document.getElementById(id);
-            if (status === "off") {
-                btnEl.disabled = true;
-                btnEl.dataset.oldText = btnEl.innerText;
-                btnEl.innerText = "❌ متوقف";
-            } else {
-                btnEl.disabled = false;
-                if(id === 'btn_reg') btnEl.innerText = "🏆 تسجيل البطولة";
-                if(id === 'btn_script') btnEl.innerText = "⚡ سكربت الهيدشوت";
-                if(id === 'btn_clan') btnEl.innerText = "👥 دخول الكلان";
-            }
-        });
+    // 1. تحديث حالة الزراير وعرضها في لوحة الأدمن
+    onValue(ref(db, 'settings/btn_reg'), (snap) => {
+        const status = snap.val();
+        document.getElementById('btn_reg').disabled = (status === "off");
+        document.getElementById('btn_reg').innerText = status === "off" ? "❌ متوقف" : "🏆 تسجيل البطولة";
+        document.getElementById('toggleReg').innerText = status === "off" ? "تشغيل الآن" : "إيقاف الآن";
     });
 
-    // 2. وظيفة التسجيل مع حماية من التكرار
-    window.action = async (type) => {
-        const sound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
-        
-        if (type === 'reg') {
-            // فحص محلي (هل سجل من هذا المتصفح؟)
-            if (localStorage.getItem('user_registered')) {
-                alert("عذراً يا بطل! لقد قمت بالتسجيل مسبقاً من هذا الجهاز.");
-                return;
-            }
+    // 2. عرض اللاعبين المسجلين للأدمن
+    onValue(ref(db, 'players'), (snapshot) => {
+        const listDiv = document.getElementById('playerList');
+        const countSpan = document.getElementById('count');
+        listDiv.innerHTML = "";
+        let count = 0;
 
-            const playerId = prompt("أدخل الـ ID الخاص بك للتحقق:");
-            if (!playerId || playerId.length < 5) {
-                alert("الـ ID غير صحيح!");
-                return;
-            }
-
-            // فحص السيرفر (هل الـ ID موجود في القاعدة؟)
-            const playersRef = ref(db, 'players');
-            const snapshot = await get(playersRef);
-            let idExists = false;
-            
+        if (snapshot.exists()) {
             snapshot.forEach((child) => {
-                if (child.val().id === playerId) idExists = true;
+                count++;
+                const p = child.val();
+                listDiv.innerHTML += `
+                    <div class="player-item">
+                        <span>ID: <b>${p.id}</b></span>
+                        <button class="del-btn" onclick="deletePlayer('${child.key}')">حذف</button>
+                    </div>
+                `;
             });
-
-            if (idExists) {
-                alert("هذا الـ ID مسجل في البطولة بالفعل!");
-                return;
-            }
-
-            // إذا كان كل شيء تمام.. سجل اللاعب
-            push(ref(db, 'players'), {
-                id: playerId,
-                date: new Date().toLocaleString()
-            }).then(() => {
-                sound.play();
-                localStorage.setItem('user_registered', 'true');
-                alert("تم تسجيلك بنجاح! نراكم في الساحة.");
-            });
+            countSpan.innerText = count;
         } else {
-            sound.play();
-            alert("تم تفعيل " + type + " بنجاح!");
+            listDiv.innerHTML = '<p style="text-align:center; color:#666;">لا يوجد لاعبين مسجلين بعد.</p>';
+            countSpan.innerText = "0";
         }
+    });
+
+    // 3. وظائف الأدمن (الحذف)
+    window.deletePlayer = (key) => {
+        if(confirm("هل تريد حذف هذا اللاعب؟")) remove(ref(db, 'players/' + key));
     };
 
-    // 3. نظام الأدمن السري
+    window.clearAllPlayers = () => {
+        if(confirm("تحذير: هل تريد مسح كل اللاعبين نهائياً؟")) remove(ref(db, 'players'));
+    };
+
+    window.toggleBtn = async (id) => {
+        const snap = await get(ref(db, 'settings/' + id));
+        set(ref(db, 'settings/' + id), snap.val() === "off" ? "on" : "off");
+    };
+
+    // 4. نظام التسجيل ومنع التكرار
+    window.action = async (type) => {
+        if (type === 'reg') {
+            if (localStorage.getItem('user_registered')) return alert("سجلت قبل كدة يا وحش!");
+            const playerId = prompt("أدخل الـ ID الخاص بك:");
+            if (!playerId || playerId.length < 5) return alert("ID غير صالح!");
+
+            const snap = await get(ref(db, 'players'));
+            let exists = false;
+            if(snap.exists()){
+                snap.forEach(c => { if(c.val().id === playerId) exists = true; });
+            }
+            if(exists) return alert("الـ ID ده مسجل فعلاً!");
+
+            push(ref(db, 'players'), { id: playerId, time: new Date().toLocaleTimeString() })
+            .then(() => {
+                localStorage.setItem('user_registered', 'true');
+                alert("تم التسجيل بنجاح!");
+            });
+        } else { alert("تم التفعيل!"); }
+    };
+
+    // 5. الدخول السري (5 ضغطات على اللوجو)
     let logoClicks = 0;
     window.checkAdmin = () => {
         logoClicks++;
         if(logoClicks >= 5) {
-            let p = prompt("رمز الدخول السري:");
-            if(p === "cheats777") {
-                document.getElementById('adminPanel').style.display = 'block';
-            }
+            if(prompt("رمز السر:") === "cheats777") document.getElementById('adminPanel').style.display = 'block';
             logoClicks = 0;
         }
     };
-
     window.closeAdmin = () => document.getElementById('adminPanel').style.display = 'none';
 
-    window.toggleBtn = async (id) => {
-        const dbRef = ref(db, 'settings/' + id);
-        const snap = await get(dbRef);
-        const current = snap.val();
-        set(dbRef, current === "off" ? "on" : "off");
-    };
-
-    // تهيئة Particles.js
-    particlesJS('particles-js', {
-        "particles": {
-            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": "#00f3ff" },
-            "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } },
-            "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } },
-            "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
-            "line_linked": { "enable": true, "distance": 150, "color": "#ff00ff", "opacity": 0.4, "width": 1 },
-            "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
-            "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
-        },
-        "retina_detect": true
-    });
+    // تهيئة الجزيئات (Particles)
+    particlesJS('particles-js', { "particles": { "number": { "value": 60 }, "color": { "value": "#00f3ff" }, "line_linked": { "enable": true, "color": "#ff00ff" }, "move": { "speed": 4 } } });
 </script>
 </body>
 </html>
