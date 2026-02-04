@@ -3,291 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUKUNA X MASTER | Gaming Hub</title>
-    
-    <link rel="icon" type="image/jpg" href="abc.jpg">
-    <meta property="og:image" content="abc.jpg">
-    <meta property="og:title" content="SUKUNA X MASTER">
-    <meta property="og:description" content="موقع فري فاير الرسمي - تسجيل مسابقات وسكربتات">
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7995831182050548" crossorigin="anonymous"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
+    <title>SUKUNA X MASTER - V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Cairo:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --neon-blue: #00f3ff;
-            --neon-purple: #bc13fe;
-            --neon-red: #ff003c;
-            --dark-bg: #050505;
-        }
-
+        :root { --neon: #00f3ff; --magenta: #ff00ff; --dark: #050505; }
         body {
-            margin: 0;
-            background-color: var(--dark-bg);
-            background-image: radial-gradient(circle at center, #1a1a2e 0%, #050505 100%);
-            color: #fff;
-            font-family: 'Cairo', sans-serif;
-            min-height: 100vh;
+            margin: 0; background: var(--dark); color: white;
+            font-family: 'Cairo', sans-serif; overflow: hidden;
         }
-
-        /* تصميم الهيدر واللوجو */
-        header {
-            padding: 20px 0;
-            text-align: center;
-            cursor: pointer;
+        /* خلفية جيمنج احترافية */
+        .hero {
+            height: 100vh; display: flex; flex-direction: column; align-items: center;
+            justify-content: center; background: radial-gradient(circle, #0f172a 0%, #050505 100%);
         }
-
-        .logo-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid var(--neon-blue);
-            box-shadow: 0 0 20px var(--neon-blue);
-            margin-bottom: 10px;
-            object-fit: cover;
+        .app-card {
+            background: rgba(255, 255, 255, 0.02); padding: 30px; border-radius: 25px;
+            border: 1px solid rgba(0, 243, 255, 0.2); backdrop-filter: blur(15px);
+            width: 85%; max-width: 380px; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.7);
         }
-
-        header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            margin: 0;
-            color: #fff;
-            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
-            letter-spacing: 3px;
+        .logo {
+            width: 110px; height: 110px; border-radius: 50%; border: 2px solid var(--neon);
+            box-shadow: 0 0 15px var(--neon); margin-bottom: 15px; cursor: pointer;
+            transition: transform 0.3s;
         }
-
-        /* الحاويات */
-        .container {
-            max-width: 500px;
-            margin: 20px auto;
-            background: rgba(10, 10, 10, 0.9);
-            border: 1px solid var(--neon-purple);
-            box-shadow: 0 0 25px rgba(188, 19, 254, 0.2);
-            border-radius: 20px;
-            padding: 30px;
-            display: none;
-            position: relative;
-            overflow: hidden;
+        .logo:active { transform: scale(0.9); }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 1.6rem; color: var(--neon); text-shadow: 0 0 10px var(--neon); margin: 10px 0; }
+        
+        /* الزراير الجيمنج */
+        .btn-grid { display: grid; gap: 12px; margin-top: 20px; }
+        .g-btn {
+            background: linear-gradient(45deg, #111, #1a1a1a);
+            border: 1px solid var(--neon); color: white; padding: 14px;
+            border-radius: 10px; font-weight: 900; cursor: pointer;
+            transition: 0.3s; font-size: 0.95rem;
         }
-
-        .container::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-        }
-
-        .active { display: block !important; animation: fadeIn 0.5s; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* الأزرار */
-        .grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-
-        .btn {
-            background: #111;
-            border: 2px solid var(--neon-blue);
-            color: #fff;
-            padding: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            border-radius: 10px;
-            text-shadow: 0 0 5px var(--neon-blue);
-        }
-
-        .btn:hover {
-            background: var(--neon-blue);
-            color: #000;
-            box-shadow: 0 0 30px var(--neon-blue);
-        }
-
-        .btn-red { border-color: var(--neon-red); text-shadow: 0 0 5px var(--neon-red); }
-        .btn-red:hover { background: var(--neon-red); color: #fff; box-shadow: 0 0 30px var(--neon-red); }
-
-        input {
-            width: 100%; padding: 15px; margin: 10px 0;
-            background: #1a1a1a; border: 1px solid #333;
-            color: #fff; border-radius: 8px; box-sizing: border-box;
-        }
-
-        input:focus { border-color: var(--neon-purple); outline: none; box-shadow: 0 0 10px var(--neon-purple); }
-
+        .g-btn:disabled { border-color: #333; color: #555; cursor: not-allowed; opacity: 0.5; }
+        .g-btn:not(:disabled):hover { background: var(--neon); color: black; box-shadow: 0 0 15px var(--neon); }
+        
         /* لوحة الأدمن */
-        .admin-table-container { overflow-x: auto; width: 100%; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; }
-        th, td { border: 1px solid #222; padding: 12px; text-align: center; }
-        th { background: var(--neon-purple); color: #fff; }
-
-        /* شاشة الإعلان */
-        #adBox {
-            position: fixed; top:0; left:0; width: 100%; height: 100%;
-            background: #000; z-index: 9999; display: none;
-            flex-direction: column; justify-content: center; align-items: center;
+        #adminPanel {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 100; display: none; padding: 30px; box-sizing: border-box;
         }
-
-        .ad-unit { width: 320px; height: 100px; background: #111; margin: 20px 0; border: 1px dashed #444; }
+        .admin-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #222; }
+        .close-admin { margin-top: 30px; background: red; color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <header onclick="checkAdmin()">
-        <img src="abc.jpg" alt="Logo" class="logo-img">
-        <h1>SUKUNA X MASTER</h1>
-    </header>
-
-    <div id="homePage" class="container active">
-        <div class="grid-menu">
-            <button class="btn" onclick="showView('regForm')">تسجيل متسابق</button>
-            <button class="btn" onclick="showView('soon')">تسجيل للرابطة</button>
-            <button class="btn" onclick="showView('soon')">سكربتات فري فاير</button>
-            <button class="btn btn-red" onclick="window.close()">خروج</button>
-        </div>
-        <div class="ad-unit">
-             <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-7995831182050548"
-                 data-ad-slot="YOUR_AD_SLOT_ID"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<div class="hero">
+    <div class="app-card">
+        <img src="abc.jpg" class="logo" onclick="checkAdmin()" alt="Logo">
+        <h1>SUKUNA MASTER</h1>
+        <p style="font-size: 0.75rem; color: #666; letter-spacing: 1px;">PREMIUM GAMING PANEL</p>
+        
+        <div class="btn-grid">
+            <button class="g-btn" id="btn_reg" onclick="action('reg')">🏆 تسجيل البطولة</button>
+            <button class="g-btn" id="btn_script" onclick="action('script')">⚡ سكربت الهيدشوت</button>
+            <button class="g-btn" id="btn_clan" onclick="action('clan')">👥 دخول الكلان</button>
         </div>
     </div>
+</div>
 
-    <div id="regForm" class="container">
-        <h2 style="color: var(--neon-blue); text-align: center;">انضم للمنافسة</h2>
-        <input type="text" id="pName" placeholder="اسمك في اللعبة">
-        <input type="text" id="pID" placeholder="ID اللاعب (سيتم فحصه)">
-        <input type="tel" id="pWH" placeholder="رقم واتساب التواصل">
-        <button class="btn" style="width: 100%; margin-top: 10px;" onclick="startAd()">إرسال البيانات</button>
-        <button class="btn btn-red" style="width: 100%; margin-top: 10px;" onclick="showView('homePage')">إلغاء</button>
+<div id="adminPanel">
+    <h2 style="color: var(--neon); font-family: 'Orbitron';">ADMIN CONTROL</h2>
+    <div class="admin-row">
+        <span>زر البطولة:</span>
+        <button onclick="toggleBtn('btn_reg')">تغيير الحالة</button>
     </div>
-
-    <div id="adminPanel" class="container" style="max-width: 800px;">
-        <h2 style="color: var(--neon-purple)">لوحة التحكم العليات</h2>
-        <div class="admin-table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>اللاعب</th>
-                        <th>ID</th>
-                        <th>واتساب</th>
-                        <th>تحكم</th>
-                    </tr>
-                </thead>
-                <tbody id="playersData"></tbody>
-            </table>
-        </div>
-        <button class="btn btn-red" style="margin-top: 20px" onclick="location.reload()">تسجيل خروج</button>
+    <div class="admin-row">
+        <span>زر السكربت:</span>
+        <button onclick="toggleBtn('btn_script')">تغيير الحالة</button>
     </div>
+    <button class="close-admin" onclick="closeAdmin()">إغلاق اللوحة</button>
+</div>
 
-    <div id="soon" class="container">
-        <h2 style="text-align: center;">قريباً جداً...</h2>
-        <button class="btn" style="width: 100%" onclick="showView('homePage')">رجوع</button>
-    </div>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, onValue, set, get, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-    <div id="adBox">
-        <h2 id="adTimer" style="color: var(--neon-blue)">انتظر ثواني...</h2>
-        <div class="ad-unit">
-            <ins class="adsbygoogle"
-                 style="display:inline-block;width:300px;height:250px"
-                 data-ad-client="ca-pub-7995831182050548"
-                 data-ad-slot="YOUR_AD_SLOT_ID"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-        <p>جاري التحقق من مشاهدة الإعلان لإتمام التسجيل...</p>
-    </div>
+    // إعدادات الفايربيس الخاصة بك
+    const firebaseConfig = {
+        databaseURL: "https://project-fe025bb5-b1cc-4b8f-93e-default-rtdb.firebaseio.com",
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, push, onValue, remove, set, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCd6mOpEJyiUSAAhmm2NbhT80MMY0UQJcc",
-            authDomain: "project-fe025bb5-b1cc-4b8f-93e.firebaseapp.com",
-            databaseURL: "https://project-fe025bb5-b1cc-4b8f-93e-default-rtdb.firebaseio.com",
-            projectId: "project-fe025bb5-b1cc-4b8f-93e",
-            storageBucket: "project-fe025bb5-b1cc-4b8f-93e.firebasestorage.app",
-            messagingSenderId: "148069353954",
-            appId: "1:148069353954:web:783adf7e8a0c796393d1bb"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        window.showView = (id) => {
-            document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        };
-
-        let adminClicks = 0;
-        window.checkAdmin = () => {
-            adminClicks++;
-            if(adminClicks === 3) {
-                if(prompt("الباسورد السري:") === "cheats777") loadAdmin();
-                adminClicks = 0;
+    // 1. مراقبة حالة الزراير من الأدمن (تحديث لحظي)
+    const btns = ['btn_reg', 'btn_script', 'btn_clan'];
+    btns.forEach(id => {
+        onValue(ref(db, 'settings/' + id), (snapshot) => {
+            const status = snapshot.val();
+            const btnEl = document.getElementById(id);
+            if (status === "off") {
+                btnEl.disabled = true;
+                btnEl.dataset.oldText = btnEl.innerText;
+                btnEl.innerText = "❌ متوقف";
+            } else {
+                btnEl.disabled = false;
+                if(id === 'btn_reg') btnEl.innerText = "🏆 تسجيل البطولة";
+                if(id === 'btn_script') btnEl.innerText = "⚡ سكربت الهيدشوت";
+                if(id === 'btn_clan') btnEl.innerText = "👥 دخول الكلان";
             }
-            setTimeout(() => adminClicks = 0, 2500);
-        };
+        });
+    });
 
-        window.startAd = async () => {
-            const id = document.getElementById('pID').value;
-            if(!id || !document.getElementById('pName').value) return alert("املا البيانات يا بطل!");
+    // 2. وظيفة التسجيل مع حماية من التكرار
+    window.action = async (type) => {
+        const sound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
+        
+        if (type === 'reg') {
+            // فحص محلي (هل سجل من هذا المتصفح؟)
+            if (localStorage.getItem('user_registered')) {
+                alert("عذراً يا بطل! لقد قمت بالتسجيل مسبقاً من هذا الجهاز.");
+                return;
+            }
 
-            // فحص الحظر
-            const banCheck = await get(ref(db, 'banned/' + id));
-            if(banCheck.exists()) return alert("الـ ID ده محظور من الإدارة!");
+            const playerId = prompt("أدخل الـ ID الخاص بك للتحقق:");
+            if (!playerId || playerId.length < 5) {
+                alert("الـ ID غير صحيح!");
+                return;
+            }
 
-            document.getElementById('adBox').style.display = 'flex';
-            let timer = 8; // زيادة الوقت قليلاً لضمان ظهور الإعلان
-            const interval = setInterval(() => {
-                timer--;
-                document.getElementById('adTimer').innerText = `جاري المعالجة... (${timer})`;
-                if(timer <= 0) {
-                    clearInterval(interval);
-                    document.getElementById('adBox').style.display = 'none';
-                    saveData();
-                }
-            }, 1000);
-        };
-
-        function saveData() {
-            const player = {
-                name: document.getElementById('pName').value,
-                id: document.getElementById('pID').value,
-                whatsapp: document.getElementById('pWH').value
-            };
-            push(ref(db, 'players'), player).then(() => {
-                alert("تم تسجيلك بنجاح في SUKUNA X MASTER!");
-                location.reload();
+            // فحص السيرفر (هل الـ ID موجود في القاعدة؟)
+            const playersRef = ref(db, 'players');
+            const snapshot = await get(playersRef);
+            let idExists = false;
+            
+            snapshot.forEach((child) => {
+                if (child.val().id === playerId) idExists = true;
             });
-        }
 
-        function loadAdmin() {
-            showView('adminPanel');
-            onValue(ref(db, 'players'), (snap) => {
-                const tbody = document.getElementById('playersData');
-                tbody.innerHTML = "";
-                snap.forEach(child => {
-                    const p = child.val();
-                    tbody.innerHTML += `
-                        <tr>
-                            <td>${p.name}</td>
-                            <td>${p.id}</td>
-                            <td>${p.whatsapp}</td>
-                            <td>
-                                <button class="btn btn-red" style="padding:5px" onclick="deleteP('${child.key}')">حذف</button>
-                                <button class="btn" style="padding:5px; border-color:orange" onclick="banP('${p.id}', '${child.key}')">حظر</button>
-                            </td>
-                        </tr>
-                    `;
-                });
+            if (idExists) {
+                alert("هذا الـ ID مسجل في البطولة بالفعل!");
+                return;
+            }
+
+            // إذا كان كل شيء تمام.. سجل اللاعب
+            push(ref(db, 'players'), {
+                id: playerId,
+                date: new Date().toLocaleString()
+            }).then(() => {
+                sound.play();
+                localStorage.setItem('user_registered', 'true');
+                alert("تم تسجيلك بنجاح! نراكم في الساحة.");
             });
+        } else {
+            sound.play();
+            alert("تم تفعيل " + type + " بنجاح!");
         }
+    };
 
-        window.deleteP = (key) => remove(ref(db, 'players/' + key));
-        window.banP = (id, key) => {
-            set(ref(db, 'banned/' + id), true);
-            remove(ref(db, 'players/' + key));
-        };
-    </script>
+    // 3. نظام الأدمن السري
+    let logoClicks = 0;
+    window.checkAdmin = () => {
+        logoClicks++;
+        if(logoClicks >= 5) {
+            let p = prompt("رمز الدخول السري:");
+            if(p === "cheats777") {
+                document.getElementById('adminPanel').style.display = 'block';
+            }
+            logoClicks = 0;
+        }
+    };
+
+    window.closeAdmin = () => document.getElementById('adminPanel').style.display = 'none';
+
+    window.toggleBtn = async (id) => {
+        const dbRef = ref(db, 'settings/' + id);
+        const snap = await get(dbRef);
+        const current = snap.val();
+        set(dbRef, current === "off" ? "on" : "off");
+    };
+</script>
 </body>
 </html>
