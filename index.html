@@ -3,198 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUKUNA MASTER - V6.0 CONTROL</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Cairo:wght@400;900&display=swap" rel="stylesheet">
+    <title>Moaz Store | Gaming</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --neon: #00f3ff; --magenta: #ff00ff; --dark: #050505; }
-        body { margin: 0; background: var(--dark); color: white; font-family: 'Cairo', sans-serif; overflow: hidden; }
-        #particles-js { position: absolute; width: 100%; height: 100%; z-index: 1; }
-        .hero { position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; justify-content: center; }
-        .app-card { background: rgba(255, 255, 255, 0.02); padding: 30px; border-radius: 25px; border: 1px solid rgba(0, 243, 255, 0.2); backdrop-filter: blur(15px); width: 85%; max-width: 380px; text-align: center; }
-        .logo { width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--neon); box-shadow: 0 0 15px var(--neon); cursor: pointer; }
-        h1 { font-family: 'Orbitron', sans-serif; color: var(--neon); text-shadow: 0 0 10px var(--neon); }
-        .g-btn { width: 100%; background: linear-gradient(45deg, #111, #1a1a1a); border: 1px solid var(--neon); color: white; padding: 15px; border-radius: 10px; font-weight: 900; cursor: pointer; margin-top: 15px; }
-
-        /* ستايل المودال (نافذة التسجيل) */
-        #regModal { display: none; position: fixed; z-index: 200; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 350px; background: #111; border: 2px solid var(--neon); border-radius: 20px; padding: 20px; box-shadow: 0 0 30px var(--neon); }
-        .input-group { margin-bottom: 15px; text-align: right; }
-        .input-group label { display: block; margin-bottom: 5px; color: var(--neon); font-size: 0.8rem; }
-        .input-group input, .input-group select { width: 100%; padding: 10px; background: #222; border: 1px solid #444; color: white; border-radius: 8px; box-sizing: border-box; }
-        .phone-input { display: flex; gap: 5px; }
-        .phone-input select { width: 40%; }
-        .phone-input input { width: 60%; }
-
-        /* لوحة الأدمن */
-        #adminPanel { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 100; display: none; padding: 15px; overflow-y: auto; }
-        .player-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 10px; }
-        .player-table th { background: var(--neon); color: #000; padding: 8px; }
-        .player-table td { padding: 8px; border-bottom: 1px solid #333; text-align: center; }
-        .whatsapp-link { color: #25D366; text-decoration: none; font-weight: bold; }
-        .admin-btn { padding: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; width: 100%; }
+        body { font-family: 'Cairo', sans-serif; background: #000; color: white; margin: 0; overflow-x: hidden; }
+        #vanta-bg { position: fixed; inset: 0; z-index: -1; }
+        .glass { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); }
+        .logo-circle { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #3b82f6; object-fit: cover; background: #111; }
+        #auth-screen { position: fixed; inset: 0; z-index: 1000; background: #000; display: flex; justify-content: center; align-items: center; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
+    <div id="vanta-bg"></div>
 
-<div id="particles-js"></div>
-
-<div class="hero">
-    <div class="app-card">
-        <img src="abc.jpg" class="logo" onclick="checkAdmin()">
-        <h1>SUKUNA MASTER</h1>
-        <button class="g-btn" id="btn_reg" onclick="openModal()">🏆 تسجيل في البطولة</button>
-    </div>
-</div>
-
-<div id="regModal">
-    <h3 style="color:var(--neon); text-align:center; margin-top:0;">بيانات المتسابق</h3>
-    <div class="input-group">
-        <label>الاسم الثلاثي:</label>
-        <input type="text" id="regName" placeholder="اكتب اسمك هنا">
-    </div>
-    <div class="input-group">
-        <label>الـ ID في اللعبة:</label>
-        <input type="number" id="regID" placeholder="12345678">
-    </div>
-    <div class="input-group">
-        <label>رقم الواتساب:</label>
-        <div class="phone-input">
-            <select id="countryCode">
-                <option value="20">🇪🇬 +20</option>
-                <option value="966">🇸🇦 +966</option>
-                <option value="212">🇲🇦 +212</option>
-                <option value="213">🇩🇿 +213</option>
-                <option value="216">🇹🇳 +216</option>
-                <option value="964">🇮🇶 +964</option>
-                <option value="962">🇯🇴 +962</option>
-                <option value="961">🇸🇾 +961</option>
-            </select>
-            <input type="number" id="regPhone" placeholder="رقم الموبايل">
+    <div id="auth-screen">
+        <div class="glass p-10 rounded-3xl w-full max-w-sm text-center border-b-4 border-blue-600">
+            <div id="auth-logo-space" class="mb-6 flex flex-col items-center gap-3">
+                <h2 class="text-3xl font-bold text-blue-500 font-[Orbitron]">MOAZ STORE</h2>
+            </div>
+            <input type="text" id="user-input" placeholder="اكتب اسمك يا بطل" class="w-full p-4 bg-zinc-900 rounded-xl border border-zinc-700 mb-6 text-center text-white outline-none focus:border-blue-500">
+            <button id="login-btn" class="w-full bg-blue-600 py-4 rounded-xl font-bold text-xl shadow-lg shadow-blue-900/40">دخول المتجر</button>
         </div>
     </div>
-    <button class="g-btn" onclick="submitRegistration()">تأكيد التسجيل ✅</button>
-    <button onclick="closeModal()" style="width:100%; background:none; border:none; color:#666; margin-top:10px; cursor:pointer;">إلغاء</button>
-</div>
 
-<div id="adminPanel">
-    <div style="display:flex; justify-content:space-between; border-bottom:2px solid var(--neon); padding-bottom:10px;">
-        <h2 style="color:var(--neon); margin:0;">لوحة التحكم</h2>
-        <button onclick="closeAdmin()" style="color:red; background:none; border:1px solid red; padding:5px 15px; border-radius:5px;">X</button>
+    <div id="main-content" class="hidden">
+        <nav class="p-4 glass flex justify-between items-center sticky top-0 z-50 border-b border-blue-500/20">
+            <div class="flex items-center gap-3">
+                <div id="nav-logo-circle">
+                    <div class="logo-circle flex items-center justify-center font-bold text-blue-500">M</div>
+                </div>
+                <h1 class="text-xl font-black text-white font-[Orbitron] tracking-tight">MOAZ STORE</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <span id="display-user" class="text-xs font-bold text-blue-200 bg-blue-900/20 px-3 py-1 rounded-full"></span>
+                <button id="logout-btn" class="text-[10px] text-red-400 font-bold hover:underline">خروج</button>
+            </div>
+        </nav>
+
+        <main class="container mx-auto p-6">
+            <div id="offers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-10"></div>
+        </main>
     </div>
 
-    <div style="background: #111; padding: 15px; border-radius: 10px; margin-top: 15px;">
-        <h4 style="margin:0 0 10px 0; color:var(--magenta);">إدارة النظام:</h4>
-        <button class="admin-btn" style="background:var(--magenta); color:white;" onclick="resetGlobalRegistration()">🔄 تصفير حماية التسجيل (السماح للجميع بالتسجيل مجدداً)</button>
-        <button class="admin-btn" style="background:#444; color:white; margin-top:10px;" onclick="clearAll()">⚠️ مسح جميع بيانات اللاعبين من الجدول</button>
-    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, onValue, push } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-    <h3 style="margin-top: 20px;">المتسابقين (<span id="count">0</span>)</h3>
-    <table class="player-table">
-        <thead>
-            <tr>
-                <th>الاسم</th>
-                <th>ID</th>
-                <th>واتساب</th>
-                <th>حذف</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-    </table>
-</div>
+        const firebaseConfig = { databaseURL: "https://project-fe025bb5-b1cc-4b8f-93e-default-rtdb.firebaseio.com" };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const dataPath = "moaz_store_data/";
+        const userKey = "moaz_v4_session";
 
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, onValue, set, get, push, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        VANTA.NET({ el: "#vanta-bg", mouseControls: true, touchControls: true, color: 0x3b82f6, backgroundColor: 0x0 });
 
-    const firebaseConfig = { databaseURL: "https://project-fe025bb5-b1cc-4b8f-93e-default-rtdb.firebaseio.com" };
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // متابعة نسخة الريسيت من السيرفر
-    onValue(ref(db, 'settings/reset_version'), (snap) => {
-        const serverVersion = snap.val() || 0;
-        const localVersion = localStorage.getItem('reset_version') || 0;
-        
-        // لو السيرفر عنده نسخة ريسيت جديدة، امسح القفل المحلي
-        if (serverVersion > localVersion) {
-            localStorage.removeItem('registered');
-            localStorage.setItem('reset_version', serverVersion);
-        }
-    });
-
-    window.openModal = () => {
-        if (localStorage.getItem('registered')) return alert("لقد سجلت مسبقاً في هذه البطولة!");
-        document.getElementById('regModal').style.display = 'block';
-    };
-    window.closeModal = () => document.getElementById('regModal').style.display = 'none';
-
-    window.submitRegistration = async () => {
-        const name = document.getElementById('regName').value;
-        const id = document.getElementById('regID').value;
-        const code = document.getElementById('countryCode').value;
-        const phone = document.getElementById('regPhone').value;
-
-        if(!name || !id || !phone) return alert("برجاء ملئ جميع الخانات!");
-
-        const snap = await get(ref(db, 'players'));
-        let dup = false;
-        if(snap.exists()) snap.forEach(c => { if(c.val().id === id) dup = true; });
-        if(dup) return alert("هذا الـ ID مسجل بالفعل!");
-
-        push(ref(db, 'players'), { name, id, phone: code + phone })
-        .then(() => {
-            localStorage.setItem('registered', 'true');
-            alert("تم التسجيل بنجاح!");
-            closeModal();
+        // جلب اللوجو وتحديثه في الدائرة
+        onValue(ref(db, dataPath + 'settings/logo'), (s) => {
+            const logo = s.val();
+            if(logo) {
+                const imgTag = `<img src="${logo}" class="logo-circle shadow-lg shadow-blue-500/20">`;
+                document.getElementById('nav-logo-circle').innerHTML = imgTag;
+                document.getElementById('auth-logo-space').insertAdjacentHTML('afterbegin', imgTag);
+            }
         });
-    };
 
-    // وظيفة الريسيت للأدمن
-    window.resetGlobalRegistration = async () => {
-        if(confirm("هل تريد السماح لجميع المتسابقين بالتسجيل مرة أخرى؟ (سيتم مسح قفل 'لقد سجلت مسبقاً' من هواتفهم)")) {
-            const resetRef = ref(db, 'settings/reset_version');
-            const snap = await get(resetRef);
-            const currentVersion = snap.val() || 0;
-            // نرفع رقم النسخة عشان الأجهزة تعرف إن في ريسيت حصل
-            set(resetRef, currentVersion + 1).then(() => {
-                alert("تمت إعادة الضبط بنجاح! الآن يمكن للجميع التسجيل مجدداً.");
+        document.getElementById('login-btn').onclick = () => {
+            const name = document.getElementById('user-input').value;
+            if (name.trim().length < 2) return alert("ادخل اسمك");
+            localStorage.setItem(userKey, name);
+            checkAuth();
+        };
+
+        document.getElementById('logout-btn').onclick = () => { localStorage.removeItem(userKey); location.reload(); };
+
+        function checkAuth() {
+            const user = localStorage.getItem(userKey);
+            if (user) {
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+                document.getElementById('display-user').innerText = "🎮 " + user;
+                loadOffers();
+            }
+        }
+
+        function loadOffers() {
+            onValue(ref(db, dataPath + 'offers'), (snapshot) => {
+                const grid = document.getElementById('offers-grid');
+                grid.innerHTML = "";
+                snapshot.forEach(child => {
+                    const item = child.val();
+                    const div = document.createElement('div');
+                    div.className = "glass p-5 rounded-3xl border border-white/5 shadow-xl transition duration-300 hover:scale-[1.02]";
+                    div.innerHTML = `
+                        <img src="${item.image}" class="w-full h-48 object-cover rounded-2xl mb-4">
+                        <h3 class="text-2xl font-bold mb-1">${item.title}</h3>
+                        <p class="text-blue-400 text-sm mb-4">${item.category || 'العاب'}</p>
+                        <div class="flex justify-between items-center mb-6"><span class="text-3xl font-black text-white">${item.price} EGP</span></div>
+                        <button class="order-btn w-full bg-green-600 hover:bg-green-500 py-4 rounded-2xl font-black text-lg transition shadow-lg shadow-green-900/20">طلب عبر واتساب</button>
+                    `;
+                    div.querySelector('.order-btn').onclick = () => {
+                        push(ref(db, dataPath + 'orders'), { userName: localStorage.getItem(userKey), itemTitle: item.title, salePrice: item.price, costPrice: item.cost, status: 'pending', time: Date.now() });
+                        window.open(`https://wa.me/${item.adminPhone}?text=${encodeURIComponent('يا معاذ، محتاج عرض: ' + item.title)}`, '_blank');
+                    };
+                    grid.appendChild(div);
+                });
             });
         }
-    };
-
-    // لوحة الأدمن
-    onValue(ref(db, 'players'), (snapshot) => {
-        const tbody = document.getElementById('tableBody');
-        const countSpan = document.getElementById('count');
-        tbody.innerHTML = ""; let count = 0;
-        if (snapshot.exists()) {
-            snapshot.forEach((child) => {
-                count++; const p = child.val();
-                tbody.innerHTML += `<tr>
-                    <td>${p.name}</td>
-                    <td>${p.id}</td>
-                    <td><a class="whatsapp-link" href="https://wa.me/${p.phone}" target="_blank">واتساب</a></td>
-                    <td><button onclick="deletePlayer('${child.key}')" style="background:red; color:white; border:none; border-radius:3px; padding:2px 8px;">X</button></td>
-                </tr>`;
-            });
-            countSpan.innerText = count;
-        }
-    });
-
-    window.deletePlayer = (key) => { if(confirm("حذف؟")) remove(ref(db, 'players/'+key)); };
-    window.clearAll = () => { if(confirm("مسح الكل؟")) remove(ref(db, 'players')); };
-    
-    let clicks = 0;
-    window.checkAdmin = () => {
-        clicks++;
-        if(clicks >= 5) {
-            if(prompt("الباسورد:") === "cheats777") document.getElementById('adminPanel').style.display = 'block';
-            clicks = 0;
-        }
-    };
-    window.closeAdmin = () => document.getElementById('adminPanel').style.display = 'none';
-
-    particlesJS('particles-js', { "particles": { "number": { "value": 40 }, "color": { "value": "#00f3ff" }, "line_linked": { "enable": true, "color": "#00f3ff" }, "move": { "speed": 2 } } });
-</script>
+        checkAuth();
+    </script>
 </body>
 </html>
